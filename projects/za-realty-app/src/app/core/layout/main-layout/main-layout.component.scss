@@ -4,4 +4,7 @@
 
 button {
   margin:  10px;
+  &.active {
+    filter: brightness(120%)
+  }
 }
