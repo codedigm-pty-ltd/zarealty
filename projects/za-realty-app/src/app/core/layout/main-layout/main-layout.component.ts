@@ -10,12 +10,14 @@ import { Router } from '@angular/router';
 export class MainLayoutComponent implements OnInit {
 
   socialUser = new SocialUser();
+  private loggedIn: boolean;
 
   constructor(public authService: AuthService,
               private router: Router) { }
 
   ngOnInit(): void {
     let socialUserJson = localStorage.getItem('socialUser') as string;
+    this.loggedIn = (socialUserJson != null);
     if (socialUserJson == null) {
       this.socialUser.name = "Barry";
     }
