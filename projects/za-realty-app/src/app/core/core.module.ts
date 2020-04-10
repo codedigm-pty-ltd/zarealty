@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
 
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
@@ -17,7 +18,8 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 
     // material
     MatToolbarModule,
-    MatButtonModule,
+    //MatButtonModule,
+    MatIconModule
   ],
   exports: [MainLayoutComponent]
 })

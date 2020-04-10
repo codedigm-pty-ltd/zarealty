@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class MainLayoutComponent implements OnInit {
 
   socialUser = new SocialUser();
-  private loggedIn: boolean;
+  loggedIn: boolean;
 
   constructor(public authService: AuthService,
               private router: Router) { }
@@ -18,11 +18,10 @@ export class MainLayoutComponent implements OnInit {
   ngOnInit(): void {
     let socialUserJson = localStorage.getItem('socialUser') as string;
     this.loggedIn = (socialUserJson != null);
-    if (socialUserJson == null) {
-      this.socialUser.name = "Barry";
+
+    if (socialUserJson != null) {
+      this.socialUser = JSON.parse(socialUserJson);
     }
-    // this.socialUser = JSON.parse(socialUserJson);
-    // console.log(this.socialUser.photoUrl);
   }
 
   logout() {

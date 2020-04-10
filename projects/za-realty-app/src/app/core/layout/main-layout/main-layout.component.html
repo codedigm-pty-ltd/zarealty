@@ -5,7 +5,12 @@
 
   <button mat-flat-button color="primary" routerLink="home" routerLinkActive="active">Home</button>
   <button mat-flat-button color="primary" routerLink="admin" routerLinkActive="active">Admin</button>
-  <button mat-flat-button color="primary" (click)="logout()" routerLinkActive="active">Logout {{this.socialUser.name}}</button>
+  <button mat-flat-button color="primary" *ngIf="loggedIn" (click)="logout()" routerLinkActive="active">Logout {{socialUser?.name}}</button>
+  <a mat-icon-button>
+  <mat-icon *ngIf="!socialUser.photoUrl">account_circle</mat-icon>
+     <img style="height: 26px;" *ngIf="socialUser.photoUrl"
+          [src]="socialUser.photoUrl"/>
+</a>
 </mat-toolbar>
 
 <main>
