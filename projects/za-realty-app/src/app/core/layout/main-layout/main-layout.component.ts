@@ -25,9 +25,8 @@ export class MainLayoutComponent implements OnInit {
   }
 
   logout() {
-    alert(1);
+     localStorage.removeItem('socialUser');
      this.authService.signOut().then(data => {
-       debugger;
        this.router.navigate(['/login']);
      });
    }
