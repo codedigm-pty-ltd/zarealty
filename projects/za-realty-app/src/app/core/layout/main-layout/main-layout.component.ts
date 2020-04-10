@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocialUser, AuthService } from 'angularx-social-login';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'codedigm-main-layout',
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
-
+  hideSpinner: boolean = false;
   socialUser = new SocialUser();
   loggedIn: boolean;
 
@@ -30,4 +30,20 @@ export class MainLayoutComponent implements OnInit {
        this.router.navigate(['/login']);
      });
    }
+
+   ngAfterViewInit(){
+     var that = this;
+     //TODO: remove timeout once we call a real backend. This is just for simulation purposes.
+     setInterval(function () {
+      that.hideSpinner = true;
+     }, 2000);
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        setTimeout(() => {
+          window.scrollTo(0,0);
+        });
+      }
+    });
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SocialUser, AuthService, FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { Router } from '@angular/router';
 import { SocialloginService } from './shared/social-login.service';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'codedigm-login',
@@ -9,19 +10,35 @@ import { SocialloginService } from './shared/social-login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  public loginForm: FormGroup;
+  public hide = true;
   private response: any;
   private socialuser: SocialUser;
   private loggedIn: boolean;
 
   constructor(private authService: AuthService,
     private socialLoginService: SocialloginService,
-    private router: Router) { }
+    private router: Router,
+    public fb: FormBuilder) { }
 
   ngOnInit() {
+    this.loginForm = this.fb.group({
+      username: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
+      password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
+      rememberMe: false
+    });
+
     this.authService.authState.subscribe((socialuser) => {
       this.socialuser = socialuser;
       this.loggedIn = (socialuser != null);
     });
+  }
+
+  //non social media login
+  public onLoginFormSubmit(values:Object):void {
+    if (this.loginForm.valid) {
+      this.router.navigate(['/']);
+    }
   }
 
   public socialSignIn(socialProvider: string) {

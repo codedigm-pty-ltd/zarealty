@@ -8,6 +8,7 @@ import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angular
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 let config = new AuthServiceConfig([
   {
