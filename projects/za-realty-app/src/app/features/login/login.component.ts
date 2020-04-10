@@ -3,6 +3,7 @@ import { SocialUser, AuthService, FacebookLoginProvider, GoogleLoginProvider } f
 import { Router } from '@angular/router';
 import { SocialloginService } from './shared/social-login.service';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { AuthStatusService } from '../../core/auth-status.service';
 
 @Component({
   selector: 'codedigm-login',
@@ -14,14 +15,17 @@ export class LoginComponent implements OnInit {
   public hide = true;
   private response: any;
   private socialuser: SocialUser;
-  private loggedIn: boolean;
+  private isloggedIn: boolean;
 
   constructor(private authService: AuthService,
     private socialLoginService: SocialloginService,
     private router: Router,
-    public fb: FormBuilder) { }
+    public fb: FormBuilder,
+    private authStatusService: AuthStatusService) { }
 
   ngOnInit() {
+    this.authStatusService.isLoggedIn$.subscribe(isloggedIn => this.isloggedIn = isloggedIn);
+
     this.loginForm = this.fb.group({
       username: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
       password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
@@ -30,7 +34,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.authState.subscribe((socialuser) => {
       this.socialuser = socialuser;
-      this.loggedIn = (socialuser != null);
+      this.isloggedIn = (socialuser != null);
+      this.authStatusService.nextSessionStatus(this.isloggedIn);
     });
   }
 

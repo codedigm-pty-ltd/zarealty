@@ -30,9 +30,9 @@
 
   <span class="spacer"></span>
 
-  <button mat-flat-button color="primary" *ngIf="loggedIn" routerLink="home" routerLinkActive="active">Home</button>
-  <button mat-flat-button color="primary" *ngIf="loggedIn" routerLink="admin" routerLinkActive="active">Admin</button>
-  <button mat-flat-button color="primary" *ngIf="loggedIn" (click)="logout()" routerLinkActive="active">Logout {{socialUser?.name}}</button>
+  <button mat-flat-button color="primary" *ngIf="isloggedIn" routerLink="home" routerLinkActive="active">Home</button>
+  <button mat-flat-button color="primary" *ngIf="isloggedIn" routerLink="admin" routerLinkActive="active">Admin</button>
+  <button mat-flat-button color="primary" *ngIf="isloggedIn" (click)="logout()" routerLinkActive="active">Logout {{socialUser?.name}}</button>
   <a mat-icon-button>
   <mat-icon *ngIf="!socialUser.photoUrl">account_circle</mat-icon>
      <img style="height: 26px;" *ngIf="socialUser.photoUrl"
