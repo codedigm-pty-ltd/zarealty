@@ -4,7 +4,7 @@ import { SocialUser, AuthService, FacebookLoginProvider, GoogleLoginProvider } f
 import { map } from 'rxjs/operators';
 import { ObservableStore } from '@codewithdan/observable-store'
 import { AuthSessionActions } from '../features/login/shared/store-actions.model';
-import { SecureStorageService } from './layout/secure-storage.service';
+import { SecureStorageService } from './secure-storage.service';
 
 @Injectable({
   providedIn: 'root'
