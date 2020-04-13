@@ -57,5 +57,8 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.8.3",
     "webpack-bundle-analyzer": "^3.6.1"
+  },
+  "browser": {
+    "crypto": false
   }
 }
