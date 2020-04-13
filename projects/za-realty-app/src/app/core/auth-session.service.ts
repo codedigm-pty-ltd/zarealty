@@ -3,21 +3,19 @@ import { Subject, from, of } from 'rxjs';
 import { SocialUser, AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { map } from 'rxjs/operators';
 import { ObservableStore } from '@codewithdan/observable-store'
-import { StoreState } from '../features/login/shared/store-state.model';
 import { AuthSessionActions } from '../features/login/shared/store-actions.model';
 import { SecureStorageService } from './layout/secure-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthSessionService extends ObservableStore<StoreState> {
+export class AuthSessionService {
 
   private socialUser = new Subject<SocialUser>();
   socialUser$ = this.socialUser.asObservable();
 
   constructor(private authService: AuthService,
     private secureStorageService: SecureStorageService) {
-    super({ trackStateHistory : true })
    }
 
   signIn(providerId: string) {
