@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SocialUser, AuthService } from 'angularx-social-login';
 import { Router, NavigationEnd } from '@angular/router';
-import { AuthStatusService } from '../../auth-status.service';
+import { AuthSessionService } from '../../auth-session.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'codedigm-main-layout',
@@ -10,28 +11,26 @@ import { AuthStatusService } from '../../auth-status.service';
 })
 export class MainLayoutComponent implements OnInit {
   hideSpinner: boolean = false;
-  socialUser = new SocialUser();
+  socialUser: SocialUser | null;
   isloggedIn: boolean;
+  signOut$: Observable<any>;
 
   constructor(public authService: AuthService,
               private router: Router,
-              private authStatusService: AuthStatusService) { }
+              private authSessionService: AuthSessionService) { }
 
   ngOnInit(): void {
-    this.authStatusService.isLoggedIn$.subscribe(isloggedIn => this.isloggedIn = isloggedIn);
-
-    // let socialUserJson = localStorage.getItem('socialUser') as string;
-
-    // if (socialUserJson != null) {
-    //   this.socialUser = JSON.parse(socialUserJson);
-    // }
+    this.authSessionService.socialUser$.subscribe(socialUser => {
+      this.socialUser = socialUser;
+      this.isloggedIn = this.socialUser != null;
+    });
   }
 
   logout() {
-     localStorage.removeItem('socialUser');
-     this.authService.signOut().then(data => {
-       this.router.navigate(['/login']);
-       this.authStatusService.nextSessionStatus(false);
+     this.signOut$ = this.authSessionService.signOut();
+     this.signOut$.subscribe(data => {
+      this.authSessionService.onChanged();
+      this.router.navigate(['/login']);
      });
    }
 

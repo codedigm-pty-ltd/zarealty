@@ -34,9 +34,9 @@
   <button mat-flat-button color="primary" *ngIf="isloggedIn" routerLink="admin" routerLinkActive="active">Admin</button>
   <button mat-flat-button color="primary" *ngIf="isloggedIn" (click)="logout()" routerLinkActive="active">Logout {{socialUser?.name}}</button>
   <a mat-icon-button>
-  <mat-icon *ngIf="!socialUser.photoUrl">account_circle</mat-icon>
-     <img style="height: 26px;" *ngIf="socialUser.photoUrl"
-          [src]="socialUser.photoUrl"/>
+  <mat-icon *ngIf="!socialUser?.photoUrl">account_circle</mat-icon>
+     <img style="height: 26px;" *ngIf="socialUser?.photoUrl"
+          [src]="socialUser?.photoUrl"/>
 </a>
 </mat-toolbar>
 
