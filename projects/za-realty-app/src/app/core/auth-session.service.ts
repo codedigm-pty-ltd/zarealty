@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Subject, from, of } from 'rxjs';
 import { SocialUser, AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { map } from 'rxjs/operators';
-import { ObservableStore } from '@codewithdan/observable-store'
 import { AuthSessionActions } from '../features/login/shared/store-actions.model';
 import { SecureStorageService } from './secure-storage.service';
 
